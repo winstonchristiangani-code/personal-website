@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Winston Christian Gani</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --cream: #faf7f2;
+  --warm: #f2ece0;
+  --ink: #1a1410;
+  --ink2: #3d3328;
+  --muted: #9a8f82;
+  --gold: #b8902a;
+  --gold-light: #d4aa50;
+  --gold-pale: #f0e8d0;
+  --border: rgba(184,144,42,0.18);
+  --border-soft: rgba(26,20,16,0.08);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 999;
+}
+
+.page {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+aside {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px 48px 60px 0;
+  border-right: 1px solid var(--border-soft);
+  animation: fade-in 1s ease both;
+}
+
+.monogram {
+  width: 60px; height: 60px;
+  border: 1.5px solid var(--gold);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-style: italic;
+  color: var(--gold);
+  margin-bottom: 28px;
+}
+
+.sidebar-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--ink2);
+  margin-bottom: 4px;
+}
+
+.sidebar-role {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--gold);
+  margin-bottom: 36px;
+}
+
+nav { display: flex; flex-direction: column; gap: 2px; margin-bottom: 44px; }
+
+nav a {
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: color 0.3s;
+}
+
+nav a::before {
+  content: '';
+  width: 0px; height: 1px;
+  background: var(--gold);
+  transition: width 0.3s;
+}
+
+nav a:hover { color: var(--ink); }
+nav a:hover::before { width: 18px; }
+
+.sidebar-meta { display: flex; flex-direction: column; gap: 12px; }
+
+.meta-row { display: flex; flex-direction: column; gap: 2px; }
+
+.meta-key {
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.meta-val { font-size: 12px; color: var(--ink2); font-weight: 400; }
+
+main { padding: 80px 0 80px 64px; }
+
+.hero {
+  padding-bottom: 68px;
+  border-bottom: 1px solid var(--border-soft);
+  animation: slide-up 0.9s 0.1s ease both;
+}
+
+.hero-eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 22px;
+  display: flex; align-items: center; gap: 14px;
+}
+
+.hero-eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--gold); }
+
+h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(50px, 6.5vw, 78px);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -1px;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+h1 em { font-style: italic; color: var(--gold); }
+
+.hero-sub {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 22px;
+  line-height: 1.9;
+  max-width: 460px;
+}
+
+.hero-sub strong { color: var(--ink2); font-weight: 500; }
+
+.section {
+  padding: 60px 0;
+  border-bottom: 1px solid var(--border-soft);
+  animation: slide-up 0.8s ease both;
+}
+
+.section:last-of-type { border-bottom: none; }
+.section:nth-of-type(1) { animation-delay: 0.15s; }
+.section:nth-of-type(2) { animation-delay: 0.25s; }
+.section:nth-of-type(3) { animation-delay: 0.35s; }
+.section:nth-of-type(4) { animation-delay: 0.45s; }
+
+.section-header {
+  display: flex; align-items: baseline; gap: 18px;
+  margin-bottom: 36px;
+}
+
+.section-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-size: 13px;
+  color: var(--gold); opacity: 0.6;
+}
+
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px; font-weight: 300;
+  letter-spacing: -0.3px;
+}
+
+.about-body {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px; font-weight: 300;
+  line-height: 1.85; color: var(--ink2);
+  max-width: 540px;
+}
+
+.about-body em { color: var(--gold); font-style: italic; }
+
+.pull-quote {
+  margin: 32px 0;
+  padding-left: 24px;
+  border-left: 2px solid var(--gold);
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-size: 19px;
+  color: var(--ink2); line-height: 1.7;
+  max-width: 460px;
+}
+
+.hobi-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border-soft);
+  border: 1px solid var(--border-soft);
+}
+
+.hobi-cell {
+  background: var(--cream);
+  padding: 28px;
+  transition: background 0.3s;
+}
+
+.hobi-cell:hover { background: var(--gold-pale); }
+
+.hobi-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-size: 11px;
+  color: var(--gold); letter-spacing: 0.1em;
+  margin-bottom: 12px;
+}
+
+.hobi-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px; font-weight: 600;
+  color: var(--ink); margin-bottom: 8px;
+}
+
+.hobi-desc { font-size: 12px; color: var(--muted); line-height: 1.8; }
+
+.achievements { display: flex; flex-direction: column; }
+
+.ach-item {
+  display: grid;
+  grid-template-columns: 48px 1fr auto;
+  align-items: start;
+  gap: 20px;
+  padding: 26px 0;
+  border-bottom: 1px solid var(--border-soft);
+  transition: padding-left 0.3s;
+  cursor: default;
+}
+
+.ach-item:last-child { border-bottom: none; }
+.ach-item:hover { padding-left: 6px; }
+
+.ach-medal {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 10px; font-style: italic;
+  text-align: center; line-height: 1.3;
+}
+
+.medal-icon { font-size: 20px; display: block; margin-bottom: 3px; }
+.medal-label { font-size: 8px; letter-spacing: 0.12em; text-transform: uppercase; }
+
+.gold-col   { color: var(--gold); }
+.silver-col { color: #8a9aaa; }
+.bronze-col { color: #a07850; }
+.special-col{ color: #7a6a9a; }
+
+.ach-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px; font-weight: 600;
+  color: var(--ink); line-height: 1.35;
+  margin-bottom: 4px;
+}
+
+.ach-org { font-size: 11px; color: var(--muted); line-height: 1.6; }
+
+.ach-note {
+  margin-top: 5px;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-size: 13px;
+  color: var(--gold);
+}
+
+.ach-year {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; color: var(--muted);
+  white-space: nowrap; margin-top: 4px;
+}
+
+.dream-wrap {
+  position: relative;
+  padding: 52px 48px;
+  overflow: hidden;
+}
+
+.dream-wrap::before {
+  content: '';
+  position: absolute; inset: 0;
+  border: 1px solid var(--border);
+  background: linear-gradient(135deg, var(--gold-pale) 0%, var(--cream) 60%);
+}
+
+.dream-wrap::after {
+  content: '"';
+  position: absolute;
+  top: 16px; left: 32px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 140px; color: var(--gold);
+  opacity: 0.07; line-height: 1;
+  pointer-events: none;
+}
+
+.dream-content { position: relative; z-index: 1; }
+
+.dream-label {
+  font-size: 9px; letter-spacing: 0.3em;
+  text-transform: uppercase; color: var(--gold);
+  margin-bottom: 18px;
+  display: flex; align-items: center; gap: 12px;
+}
+
+.dream-label::before { content: ''; width: 20px; height: 1px; background: var(--gold); }
+
+.dream-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 34px; font-weight: 300;
+  font-style: italic; color: var(--ink);
+  margin-bottom: 16px; line-height: 1.2;
+}
+
+.dream-title strong { color: var(--gold); font-style: normal; font-weight: 600; }
+
+.dream-body {
+  font-size: 13px; color: var(--ink2);
+  line-height: 1.9; max-width: 460px;
+}
+
+footer {
+  padding: 36px 0 0;
+  display: flex; justify-content: space-between;
+  align-items: center; flex-wrap: wrap; gap: 12px;
+}
+
+.footer-left {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-size: 14px; color: var(--muted);
+}
+
+.footer-right {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; color: var(--gold); letter-spacing: 0.1em;
+}
+
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .page { grid-template-columns: 1fr; padding: 0 20px; }
+  aside {
+    position: static; height: auto;
+    padding: 40px 0 28px;
+    border-right: none;
+    border-bottom: 1px solid var(--border-soft);
+    flex-direction: column; gap: 0;
+  }
+  main { padding: 48px 0 60px; }
+  .hobi-grid { grid-template-columns: 1fr; }
+  .dream-wrap { padding: 32px 24px; }
+  .ach-item { grid-template-columns: 40px 1fr; }
+  .ach-year { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <aside>
+    <div class="monogram">WG</div>
+    <div class="sidebar-name">Winston C. Gani</div>
+    <div class="sidebar-role">Matematikawan Muda</div>
+    <nav>
+      <a href="#tentang">Tentang</a>
+      <a href="#hobi">Minat</a>
+      <a href="#prestasi">Prestasi</a>
+      <a href="#citacita">Visi</a>
+    </nav>
+    <div class="sidebar-meta">
+      <div class="meta-row">
+        <span class="meta-key">Lahir</span>
+        <span class="meta-val">22 Agustus 2010</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-key">Sekolah</span>
+        <span class="meta-val">SMA Wardaya</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-key">Kota</span>
+        <span class="meta-val">Jakarta</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-key">Usia</span>
+        <span class="meta-val" id="age-val">15 tahun</span>
+      </div>
+    </div>
+  </aside>
+
+  <main>
+    <div class="hero">
+      <p class="hero-eyebrow">Profil Pribadi</p>
+      <h1>Winston<br><em>Christian Gani</em></h1>
+      <p class="hero-sub">
+        Siswa SMA Wardaya, Jakarta. Anggota <strong>Tim Olimpiade Matematika Indonesia (TOMI)</strong>
+        dan peserta Pelatnas IMO 2026 — membuktikan bahwa usia bukan batasan untuk meraih hal-hal luar biasa.
+      </p>
+    </div>
+
+    <section class="section" id="tentang">
+      <div class="section-header">
+        <span class="section-num">01</span>
+        <h2 class="section-title">Tentang Saya</h2>
+      </div>
+      <p class="about-body">
+        Saya adalah seorang pelajar yang percaya bahwa <em>matematika adalah bahasa paling jujur di dunia</em> —
+        tak ada ambiguitas, hanya keindahan logika yang murni. Perjalanan saya di dunia olimpiade dimulai sejak
+        sekolah dasar, dan setiap tahap membawa tantangan sekaligus keajaiban baru.
+      </p>
+      <blockquote class="pull-quote">
+        "Setiap soal olimpiade adalah sebuah teka-teki yang menunggu untuk dimengerti, bukan sekadar diselesaikan."
+      </blockquote>
+      <p class="about-body">
+        Di luar matematika, saya juga senang bermain game — bukan sekadar hiburan, melainkan latihan
+        intuisi strategis dan ketenangan berpikir di bawah tekanan.
+      </p>
+    </section>
+
+    <section class="section" id="hobi">
+      <div class="section-header">
+        <span class="section-num">02</span>
+        <h2 class="section-title">Minat &amp; Hobi</h2>
+      </div>
+      <div class="hobi-grid">
+        <div class="hobi-cell">
+          <div class="hobi-num">— 01</div>
+          <div class="hobi-name">Matematika Olimpiade</div>
+          <div class="hobi-desc">Number theory, combinatorics, geometry, dan algebra — empat pilar yang menjadi dunia sehari-hari. Memecahkan soal berjam-jam adalah kesenangan tersendiri.</div>
+        </div>
+        <div class="hobi-cell">
+          <div class="hobi-num">— 02</div>
+          <div class="hobi-name">Bermain Game</div>
+          <div class="hobi-desc">Strategi, eksekusi, dan adaptasi cepat. Game melatih banyak keterampilan yang juga berguna di atas kertas olimpiade.</div>
+        </div>
+        <div class="hobi-cell">
+          <div class="hobi-num">— 03</div>
+          <div class="hobi-name">Pelajaran Favorit</div>
+          <div class="hobi-desc">Matematika — tentu saja. Tidak ada pelajaran lain yang menawarkan kombinasi keindahan, kekakuan, dan kejutan yang sama.</div>
+        </div>
+        <div class="hobi-cell">
+          <div class="hobi-num">— 04</div>
+          <div class="hobi-name">Belajar Mandiri</div>
+          <div class="hobi-desc">Membaca soal-soal IMO terdahulu, mempelajari teknik dari berbagai buku olimpiade, dan terus mengasah kemampuan setiap hari.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="prestasi">
+      <div class="section-header">
+        <span class="section-num">03</span>
+        <h2 class="section-title">Prestasi</h2>
+      </div>
+      <div class="achievements">
+
+        <div class="ach-item">
+          <div class="ach-medal special-col">
+            <span class="medal-icon">🌏</span>
+            <span class="medal-label">Pelatnas</span>
+          </div>
+          <div class="ach-body">
+            <div class="ach-title">IDN 7 — Pelatnas IMO 2026</div>
+            <div class="ach-org">TOMI · Tim Olimpiade Matematika Indonesia</div>
+            <div class="ach-note">Selangkah lagi menuju panggung matematika dunia.</div>
+          </div>
+          <div class="ach-year">Mei 2026</div>
+        </div>
+
+        <div class="ach-item">
+          <div class="ach-medal bronze-col">
+            <span class="medal-icon">🥉</span>
+            <span class="medal-label">Perunggu</span>
+          </div>
+          <div class="ach-body">
+            <div class="ach-title">Bronze Medal — OSN Matematika SMA 2025</div>
+            <div class="ach-org">Puspresnas · Kemdikbudristek RI</div>
+          </div>
+          <div class="ach-year">Okt 2025</div>
+        </div>
+
+        <div class="ach-item">
+          <div class="ach-medal silver-col">
+            <span class="medal-icon">🥈</span>
+            <span class="medal-label">Perak</span>
+          </div>
+          <div class="ach-body">
+            <div class="ach-title">Silver Award — LMNas UGM Ke-35 2024</div>
+            <div class="ach-org">Himatika · Universitas Gadjah Mada</div>
+            <div class="ach-note">"Exploring the Art of Mathematical Problem Solving"</div>
+          </div>
+          <div class="ach-year">Nov 2024</div>
+        </div>
+
+        <div class="ach-item">
+          <div class="ach-medal special-col">
+            <span class="medal-icon">⚡</span>
+            <span class="medal-label">Rekor</span>
+          </div>
+          <div class="ach-body">
+            <div class="ach-title">Finalis Termuda — OSN Matematika SMA 2024</div>
+            <div class="ach-org">Puspresnas · Kemdikbudristek RI</div>
+            <div class="ach-note">Siswa SMP kelas 8 — lolos bersaing di antara seluruh peserta SMA, dua tingkat lebih tinggi.</div>
+          </div>
+          <div class="ach-year">Agu 2024</div>
+        </div>
+
+        <div class="ach-item">
+          <div class="ach-medal special-col">
+            <span class="medal-icon">🏙️</span>
+            <span class="medal-label">DKI</span>
+          </div>
+          <div class="ach-body">
+            <div class="ach-title">Finalis Termuda Kontingen DKI Jakarta — OSN Matematika SMA 2024</div>
+            <div class="ach-org">Puspresnas · Kemdikbudristek RI</div>
+          </div>
+          <div class="ach-year">Agu 2024</div>
+        </div>
+
+        <div class="ach-item">
+          <div class="ach-medal gold-col">
+            <span class="medal-icon">🥇</span>
+            <span class="medal-label">Emas</span>
+          </div>
+          <div class="ach-body">
+            <div class="ach-title">Gold Medal — OSN Matematika SMP 2023</div>
+            <div class="ach-org">Kemdikbudristek RI</div>
+            <div class="ach-note">Kelas 7 — finalis termuda di antara seluruh peserta.</div>
+          </div>
+          <div class="ach-year">Sep 2023</div>
+        </div>
+
+        <div class="ach-item">
+          <div class="ach-medal silver-col">
+            <span class="medal-icon">🥈</span>
+            <span class="medal-label">Perak</span>
+          </div>
+          <div class="ach-body">
+            <div class="ach-title">Silver Medal — OSN Matematika SD 2021</div>
+            <div class="ach-org">Kemdikbudristek RI</div>
+            <div class="ach-note">Awal dari sebuah perjalanan panjang yang luar biasa.</div>
+          </div>
+          <div class="ach-year">Agu 2021</div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="section" id="citacita">
+      <div class="section-header">
+        <span class="section-num">04</span>
+        <h2 class="section-title">Visi</h2>
+      </div>
+      <div class="dream-wrap">
+        <div class="dream-content">
+          <p class="dream-label">Cita-Cita</p>
+          <h3 class="dream-title">Menjadi Perwakilan <strong>Indonesia</strong><br>di Panggung IMO</h3>
+          <p class="dream-body">
+            International Mathematical Olympiad adalah kompetisi matematika paling bergengsi di dunia.
+            Dengan telah masuknya saya ke Pelatnas IMO 2026, mimpi itu kini bukan lagi sekadar angan —
+            ia adalah tujuan yang nyata dan dalam jangkauan. Setiap latihan, setiap soal yang dipecahkan,
+            adalah satu langkah menuju panggung itu.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-left">Winston Christian Gani · Jakarta, 2026</div>
+      <div class="footer-right">SMA Wardaya · TOMI · IMO 2026</div>
+    </footer>
+  </main>
+</div>
+
+<script>
+  const birth = new Date(2010, 7, 22);
+  const now = new Date();
+  let age = now.getFullYear() - birth.getFullYear();
+  const m = now.getMonth() - birth.getMonth();
+  if (m < 0 || (m === 0 && now.getDate() < birth.getDate())) age--;
+  document.getElementById('age-val').textContent = age + ' tahun';
+</script>
+</body>
+</html>
